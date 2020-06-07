@@ -1,0 +1,25 @@
+.container{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header h3{
+color: white;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}

@@ -1,0 +1,116 @@
+<header>
+	<nav class="navbar navbar-expand-md navbar-dark " style="background-color: #212121;">
+	  <a class="navbar-brand" routerLink="/">
+		<!-- <span style="color:white">ganatan</span>
+		<img src="./assets/params/images/logo/ganatan.png" width="20" height="20" alt=""> -->
+	  </a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+		aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<ul class="navbar-nav ml-auto">
+          <li class="nav-item active" (click)="logout()">
+			<a class="nav-link" routerLink="/login">
+			  <i class="fas fa-envelope mr-1"></i> Logout
+			</a>
+		  </li>
+		</ul>
+	  </div>
+	</nav>
+  </header>
+<div class="container">
+    <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch" style="overflow: visible;">
+            <div class="recent_heading">
+              <div class="dropdown">
+                <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown">
+                  {{selectDate}}
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" *ngFor="let item of dates;let i=index" (click)="changeDate(i,item)">{{item}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <input type="text" class="search-bar" placeholder="Search" />
+                <span class="input-group-addon">
+                  <button type="button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="inbox_chat">
+            <div class="chat_list" [ngClass]="{ 'active_chat':index === i }" *ngFor="let conversation of selectedData ;let i = index">
+              <ng-container *ngFor="let item of conversation;">
+                <div class="chat_people" (click)="showCurrentChat(item,i)">
+                  <div class="chat_img">
+                    <img *ngIf="item.responseText"
+                      src="assets/checkmark.png"
+                      alt="Yes"
+                    />
+                    <img *ngIf="!item.responseText"
+                      src="assets/remove.png"
+                      alt="No"
+                    />
+                  </div>
+                  <div class="chat_ib">
+                    <h5>{{item.name}}<span class="chat_date">{{item.date}}</span></h5>
+                    <p>
+                      {{item.subject}}
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            
+          </div>
+        </div>
+        <div class="mesgs">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>{{currentItem?.orderNumber}}</h4>
+            </div>
+          </div>
+          <div style="padding: 5px;"></div>
+          <div class="msg_history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <ng-container *ngFor="let msg of currentItem?.messages">
+              <div class="incoming_msg">
+                <div class="incoming_msg_img"> <img src="assets/user-profile.png" alt="sunil"> </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{msg.content}}</p>
+                    <span class="time_date">{{msg.dateTime}}</span></div>
+                </div>
+              </div>
+              <div class="outgoing_msg" *ngIf="msg.header.includes('Moi')">
+                <div class="sent_msg">
+                  <p>{{msg.content}}</p>
+                  <span class="time_date">{{msg.dateTime}}</span> </div>
+              </div>
+            </ng-container>
+            
+              
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <div class="form-group">
+                <textarea class="form-control" rows="2" id="comment" type="text"
+                placeholder="Type a message"
+                [value]="currentItem?.responseText"></textarea>
+              </div>
+              
+              <button class="msg_send_btn" type="button">
+                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
